@@ -1,0 +1,89 @@
+METODO 1
+
+configuracion de maquina virtual en oracle cloud
+
+chmod 400 llave-privada.key 
+ssh -i llave-privada.key opc@ip-instancia
+sudo yum update
+sudo yum install git
+git --version
+sudo yum install java-11-openjdk-devel
+java -version
+sudo dnf install maven
+mvn --version
+sudo alternatives --config java
+elegir 1
+sudo alternatives --config javac
+elegir 1
+
+luego de clonar repositorio ingresar con cd y utilizar...
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+mvn clean package -DskipTests
+
+luego ingresar a la carpeta target despues de que la compilacion haya sido exitosa, y usar el puerto que queramos
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+
+despues ejecutamos la aplicacion con el archiva .jar
+sudo java -jar "archivo.jar"
+
+METODO 2
+
+despues de creada la instancia
+
+-agregar reglas de subred 80 y 8080
+inicar instancia
+sudo dnf update -y
+sudo dnf install git
+git --version
+sudo dnf install java-11-openjdk-devel
+java --version
+sudo dnf info maven
+sudo yum-config-manager --add-repo http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
+sudo yum-config-manager --enable epel-apache-maven
+sudo dnf install maven -y
+mvn -v
+sudo alternatives --config java
+escogen opcion 1
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+sudo su
+sudo yum install httpd
+systemctl start httpd
+systemctl status httpd
+
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+
+git remote add origin "link de mi repo de github"
+
+ls
+
+cd "nombre de la carpeta del proyecto"
+
+mvn clean package -DsikpTest
+
+cd target
+
+java -jar target/"nombre del proyecto"-0.0.1-SNAPSHOT.jar
+
+realizar peticiones con la ip y el puerto por el navegador
+
+COMANDOS
+
+copiar repositorio de mi maquina a github
+git init
+git branch -M main
+git add .
+git commit -m "first commit"
+git remote add origin "link de mi repo de github"
+git push origin main
+
+
+borrar carpeta de git de mi maquina
+rm -rf .git
+
+
+clonar repo en mi maquina
+git clone "link de mi repo de github"
