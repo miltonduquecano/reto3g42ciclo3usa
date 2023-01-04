@@ -87,3 +87,8 @@ rm -rf .git
 
 clonar repo en mi maquina
 git clone "link de mi repo de github"
+
+Actualizar repositorio
+git add .
+git commit -m "second commit"
+git push origin main
